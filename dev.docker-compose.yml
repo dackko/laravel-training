@@ -1,0 +1,15 @@
+version: "3"
+services:
+  app:
+    extra_hosts:
+      - "${AUTH_APP_HOST}:${HOST_MACHINE}"
+      - "${BACKEND_APP_HOST}:${HOST_MACHINE}"
+      - "${CLIENT_APP_HOST}:${HOST_MACHINE}"
+      - "${STUDIO_APP_HOST}:${HOST_MACHINE}"
+      - "${ACTIVITY_APP_HOST}:${HOST_MACHINE}"
+      - "${AMQP_HOST}:${HOST_MACHINE}"
+      - "dev:${HOST_MACHINE}"
+    volumes:
+      - ~/.composer:/var/cache/nginx/.composer
+    environment:
+      - LOCAL_DEVELOPMENT=true

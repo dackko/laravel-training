@@ -1,0 +1,49 @@
+version: "3"
+services:
+  app:
+    image: jocaliocatalog_app:latest
+    working_dir: "${CONTAINER_ROOT}"
+    build:
+      context: docker
+      dockerfile: local.Dockerfile
+    links:
+    - mariadb
+    volumes:
+    - .:${CONTAINER_ROOT}
+    - ./docker/${APP_ENV}/conf/supervisord.conf:/etc/supervisord.conf
+    - ./docker/${APP_ENV}/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+    - ./docker/${APP_ENV}/conf/nginx/default.conf:/etc/nginx/sites/application.conf
+    - ./docker/${APP_ENV}/scripts/start.sh:/start.sh
+    - ./docker/${APP_ENV}/conf/php:/usr/local/etc/php/conf
+    - ./docker/${APP_ENV}/scripts/crontab:/etc/cron.d/hello-cron
+    - ./docker/${APP_ENV}/scripts/healthcheck/app-healthcheck.sh:/app-healthcheck.sh
+    ports:
+    - ${NGINX_PORT}:80
+    environment:
+    - WEBROOT=${CONTAINER_ROOT}/public
+    - ROOT=${CONTAINER_ROOT}
+    - REAL_IP_HEADER=1
+    - NGINX_SERVER_NAME=${NGINX_SERVER_NAME}
+    - PUID=${DOCKER_HOST_UID}
+    - PGID=${DOCKER_HOST_GID}
+
+  # Services
+  mariadb:
+    image: mariadb:10.3
+    volumes:
+    - ${DATABASE_LOCAL_STORAGE}:/var/lib/mysql:rw
+    - ./docker/local/scripts/testing.sql:/docker-entrypoint-initdb.d/testing.sql
+    - ./docker/${APP_ENV}/scripts/healthcheck/mariadb-healthcheck.sh:/mariadb-healthcheck.sh
+    - .:${CONTAINER_ROOT}
+    environment:
+    - MYSQL_DATABASE=${DB_DATABASE}
+    - MYSQL_USER=${DB_USERNAME}
+    - MYSQL_PASSWORD=${DB_PASSWORD}
+    - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    links:
+    - mariadb:db
+    ports:
+    - ${PMA_PORT}:80
