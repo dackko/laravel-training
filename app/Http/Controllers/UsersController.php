@@ -38,11 +38,8 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->storeRules());
-
-//        $params = $request->all();
-//        $params['password'] = bcrypt($params['password']);
-//        User::create($params);
         User::create($request->all());
+
         return redirect()->back()->with(['status' => 'success', 'message' => 'User has been added.']);
     }
 
@@ -67,39 +64,52 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $userTypes = UserType::all();
+        $user = User::find($id);
+
+        $data = compact('userTypes', 'user');
+
+        return view('users.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->updateRules());
+
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+
+        return redirect()->back()->with(['status' => 'success', 'message' => 'User has been updated.']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $user = User::findOrfail($id);
+        $user->delete();
+
+        return response()->json(['status' => 'Success']);
     }
 
     private function storeRules(): array
     {
         $usersTable = (new User)->getTable();
+        $userTypes = (new UserType())->getTable();
 
         return [
-            'type_id' => 'required',
+            'type_id' => "required|exists:{$userTypes},id",
             'name' => 'required',
             'email' => "required|unique:{$usersTable}|email",
             'password' => 'required|min:6|max:32|confirmed',
+        ];
+    }
+
+    private function updateRules(): array
+    {
+        $userTypes = (new UserType())->getTable();
+
+        return [
+            'type_id' => "required|exists:{$userTypes},id",
+            'name' => 'required',
         ];
     }
 }

@@ -1,6 +1,7 @@
 <div class="form-group">
   <label>Select User Type</label>
   <select class="form-control" name="type_id">
+    <option value="" selected disabled>--- Select User Type ---</option>
     @foreach($userTypes as $userType)
       <option value="{{ $userType->id }}">{{ $userType->name }}</option>
     @endforeach

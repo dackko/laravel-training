@@ -21,11 +21,6 @@ Route::get('/', function() {
 
 Route::get('/home', HomeController::class . '@index');
 
-Route::group(['prefix' => 'users', 'as' => 'users.'], function() {
-    Route::get('/', [UsersController::class, 'index'])->name('index');
-    Route::get('create', [UsersController::class, 'create'])->name('create');
-    Route::get('{id}', [UsersController::class, 'show'])->name('show');
-    Route::post('store', [UsersController::class, 'store'])->name('store');
-});
+Route::resource('users', UsersController::class);
 
 Route::get('users-types', [UsersTypeController::class, 'index']);

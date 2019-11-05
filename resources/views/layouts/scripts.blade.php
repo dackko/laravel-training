@@ -37,4 +37,6 @@
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{ asset('assets/dist/js/custom.js') }}"></script>
 @yield('js')
