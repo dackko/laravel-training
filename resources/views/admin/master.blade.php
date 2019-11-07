@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  @include('layouts.head')
+  @include('admin.layouts.head')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-@include('layouts.nav-bar')
-@include('layouts.aside')
+@include('admin.layouts.nav-bar')
+@include('admin.layouts.aside')
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -41,7 +41,7 @@
     </section>
     <!-- /.content -->
   </div>
-@include('layouts.footer')
+@include('admin.layouts.footer')
 
 <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -51,6 +51,6 @@
 </div>
 <!-- ./wrapper -->
 
-@include('layouts.scripts')
+@include('admin.layouts.scripts')
 </body>
 </html>

@@ -12,15 +12,12 @@
 */
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\UsersTypeController;
 
 Route::get('/', function() {
-    return view('master');
+    return view('welcome');
 });
 
-Route::get('/home', HomeController::class . '@index');
-
-Route::resource('users', UsersController::class);
-
-Route::get('users-types', [UsersTypeController::class, 'index']);
+//Route::get('/home', HomeController::class . '@index');
+Auth::routes();
+Route::get('/admin/login', [\App\Http\Controllers\LoginController::class, 'index'])->name('admin.login.index');
+Route::post('/admin/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('admin.login');

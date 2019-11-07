@@ -1,4 +1,4 @@
-@extends('master')
+@extends('admin.master')
 @section('page-title', 'Users')
 @section('content')
   <!-- Main content -->
@@ -7,22 +7,22 @@
       <div class="col-12">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Update User: <strong>{{ $user->name }}</strong></h3>
+            <h3 class="card-title">Create New User</h3>
           </div>
           @if(session('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
         @endif
         <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" method="post" action="{{ route('users.update', ['id' => $user->id]) }}">
+          <form role="form" method="post" action="{{ route('users.store') }}">
             @csrf
             <div class="card-body">
-              @include('users.fragments.form-update')
+              @include('admin.users.fragments.form')
             </div>
             <!-- /.card-body -->
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Update</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </form>
         </div>

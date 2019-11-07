@@ -1,4 +1,4 @@
-@extends('master')
+@extends('admin.master')
 @section('page-title', 'Users')
 @section('content')
   <!-- Main content -->
@@ -8,7 +8,8 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">
-              <a href="{{ route('users.create') }}" class="btn btn-primary"><i class="fa fa-user-plus"></i> Create New
+              <a href="{{ route('admin.users.create') }}" class="btn btn-primary"><i class="fa fa-user-plus"></i> Create
+                New
                 User</a>
             </h3>
           </div>
@@ -38,9 +39,9 @@
                   <td>{{ $user->email }}</td>
                   <td>{{ $user->created_at->format('H:i, d M Y') }}</td>
                   <td>
-                    <a href="{{ route('users.show', ['user' => $user->id]) }}"><i class="fa fa-eye"></i></a>
-                    <a href="{{ route('users.edit', ['user' => $user->id]) }}"><i class="fa fa-pen"></i></a>
-                    <a class="delete-item" data-url="{{ route('users.destroy', ['user' => $user->id]) }}"
+                    <a href="{{ route('admin.users.show', ['user' => $user->id]) }}"><i class="fa fa-eye"></i></a>
+                    <a href="{{ route('admin.users.edit', ['user' => $user->id]) }}"><i class="fa fa-pen"></i></a>
+                    <a class="delete-item" data-url="{{ route('admin.users.destroy', ['user' => $user->id]) }}"
                        data-token="{{ csrf_token() }}"
                        style="cursor:pointer;"><i
                           class="fa fa-trash" style="color:red;"></i></a>

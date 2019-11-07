@@ -14,7 +14,7 @@ class UsersController extends Controller
 
         $data = compact('users');
 
-        return view('users.index', $data);
+        return view('admin.users.index', $data);
     }
 
     /**
@@ -27,7 +27,7 @@ class UsersController extends Controller
 
         $data = compact('userTypes');
 
-        return view('users.create', $data);
+        return view('admin.users.create', $data);
     }
 
     /**
@@ -54,7 +54,7 @@ class UsersController extends Controller
 
         $data = compact('user');
 
-        return view('users.show', $data);
+        return view('admin.users.show', $data);
     }
 
     /**
@@ -69,7 +69,7 @@ class UsersController extends Controller
 
         $data = compact('userTypes', 'user');
 
-        return view('users.edit', $data);
+        return view('admin.users.edit', $data);
     }
 
     public function update(Request $request, $id)

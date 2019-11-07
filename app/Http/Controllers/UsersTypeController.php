@@ -14,7 +14,7 @@ class UsersTypeController extends Controller
 
         $data = compact('userTypes');
 
-        return view('users.types', $data);
+        return view('admin.users.types', $data);
     }
 
 }

@@ -11,6 +11,10 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
+        factory(User::class, null)->create([
+            'type_id' => \App\Models\UserType::ADMIN,
+            'email' => 'admin@jira-clone.local',
+        ]);
         factory(User::class, 100)->create();
     }
 }
