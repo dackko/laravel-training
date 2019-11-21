@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRemoved;
 use App\Models\User;
 use App\Models\UserType;
 use Illuminate\Http\Request;
@@ -82,10 +83,12 @@ class UsersController extends Controller
         return redirect()->back()->with(['status' => 'success', 'message' => 'User has been updated.']);
     }
 
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $user = User::findOrfail($id);
         $user->delete();
+
+        event(new UserRemoved($user, $request->get('reason')));
 
         return response()->json(['status' => 'Success']);
     }

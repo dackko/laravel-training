@@ -40,6 +40,16 @@
                         </div>
 
                         <div class="form-group row">
+                            <label class="col-md-4 text-md-right">Select User Type</label>
+                            <select class="form-control col-md-6" name="type_id">
+                                <option value="" selected disabled>--- Select User Type ---</option>
+                                @foreach($userTypes as $userType)
+                                    <option value="{{ $userType->id }}">{{ $userType->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

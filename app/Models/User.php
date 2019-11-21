@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string   email
  * @property UserType UserType
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value)
     {
-        if($value != ""){
+        if ($value != "") {
             $this->attributes['password'] = bcrypt($value);
         }
     }

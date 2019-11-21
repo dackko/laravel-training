@@ -18,6 +18,6 @@ Route::get('/', function() {
 });
 
 //Route::get('/home', HomeController::class . '@index');
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/admin/login', [\App\Http\Controllers\LoginController::class, 'index'])->name('admin.login.index');
 Route::post('/admin/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('admin.login');
